@@ -1,10 +1,10 @@
 from flask import Flask, request
 
-from sel import SEL
+from request import Req
 
 ip = '0.0.0.0'
 app = Flask(__name__)
-sel = SEL()
+req = Req()
 
 
 @app.route('/', methods=['GET', 'POST'])
@@ -14,14 +14,14 @@ def get_data():
             url = request.args.get('url', default='*', type=str)
 
             if "https://www.example.com" in url:
-                return sel.get_data_req(url)
+                return req.get_data_req(url)
             return ""
         if request.method == 'POST':
             url = request.args.get('url', default='*', type=str)
 
             data = request.form
             if "https://www.example.com" in url:
-                return sel.post_data_req(url, data)
+                return req.post_data_req(url, data)
             return ""
 
     except Exception as ex:
