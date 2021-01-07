@@ -1,6 +1,6 @@
 from flask import Flask, request
 
-from request import Req
+from src.request import Req
 
 ip = '0.0.0.0'
 app = Flask(__name__)

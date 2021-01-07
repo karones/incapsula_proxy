@@ -5,7 +5,7 @@ from json import JSONDecodeError
 
 from redis import Redis
 
-import app_logger
+from src import app_logger
 
 import requests
 import pickle
@@ -28,6 +28,8 @@ class Req:
 
         for cookie in cookies:
             self.session.cookies.set(cookie['name'], cookie['value'])
+
+
 
     def cookies_loop(self):
         while True:
