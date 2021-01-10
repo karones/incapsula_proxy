@@ -1,0 +1,16 @@
+Прокси сервер для обходи Incapsula.
+
+Selenium модуль для работы с сайтом
+python3 gecko/sel.py
+
+
+Для запуска необходимо добавить geckodriver в директорию gecko.
+Последняя версия драйвера находится по адресу
+https://github.com/mozilla/geckodriver/releases
+
+
+Запуск прокси в режиме отладки
+python3 src/iaa.py
+
+
+

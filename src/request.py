@@ -1,14 +1,12 @@
 import json
-import threading
+import pickle
 import time
 from json import JSONDecodeError
 
+import requests
 from redis import Redis
 
 from src import app_logger
-
-import requests
-import pickle
 
 
 class Req:
@@ -21,20 +19,13 @@ class Req:
         self.redisClient = Redis(host='localhost')
         self.redisClient.set('cookie', pickle.dumps([]))
         self.p = self.redisClient.pubsub(ignore_subscribe_messages=True)
-        threading.Thread(target=self.cookies_loop, args=()).start()
+        self.p.subscribe(**{'set_cookie': self.set_cookie()})
 
     def set_cookie(self):
         cookies = pickle.loads(self.redisClient.get('cookie'))
 
         for cookie in cookies:
             self.session.cookies.set(cookie['name'], cookie['value'])
-
-
-
-    def cookies_loop(self):
-        while True:
-            self.set_cookie()
-            time.sleep(0.1)
 
     def post_data_req(self, url, post_data, count=0):
 

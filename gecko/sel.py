@@ -36,7 +36,7 @@ class Sel:
         if platform.system() == 'Windows':
             self.driver = webdriver.Firefox(executable_path=r'./geckodriver.exe')
         else:
-            self.display = Display(visible=1, size=(1600, 1024))
+            self.display = Display(visible=0, size=(1600, 1024))
             self.display.start()
 
             self.driver = webdriver.Firefox(executable_path=r'./geckodriver')
@@ -74,6 +74,7 @@ class Sel:
 
     def set_cookie(self):
         self.redisClient.set('cookie', pickle.dumps(self.driver.get_cookies()))
+        self.redisClient.publish('set_cookie', None)
 
     def set_timer(self):
         self.t = threading.Timer(30.0, self.get_data)
